@@ -171,13 +171,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 144728899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9aba8a0bb4d942b2e1266f8c23c03, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bc2dc8219ff53a43998d104efbfa4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _CardSpawner: {fileID: 1248529331}
-  _CardPositioner: {fileID: 1001827203}
-  _DropBoardController: {fileID: 2091105569}
-  _ActiveCards: []
 --- !u!1 &261505609
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 261505610}
+  - component: {fileID: 261505611}
   m_Layer: 0
   m_Name: 'Controller: Deck'
   m_TagString: Untagged
@@ -209,6 +206,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &261505611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261505609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e8f8cf23ceba948bab9fea2173f9fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onNameChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDescriptionChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _onSpriteChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _onAPChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHPChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCostChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,8 +533,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 701000734}
+  - component: {fileID: 701000736}
+  - component: {fileID: 701000735}
   m_Layer: 5
-  m_Name: 'Group: Additional Controllers'
+  m_Name: 'Controller: Random Cards Generator'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -524,10 +553,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2091406401}
-  - {fileID: 1248529329}
-  - {fileID: 1001827204}
+  m_Children: []
   m_Father: {fileID: 144728900}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -536,6 +562,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &701000735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701000733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8308308096544594ba20ea131664cd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hand: {fileID: 144728901}
+  _spriteLoader: {fileID: 701000736}
+  _parentTransform: {fileID: 1596659962}
+  _cardPrefab: {fileID: 9177712158124858762, guid: 97b37da5750fefa4e9e7fcfe34b20787, type: 3}
+  _defaultSprite: {fileID: 451374735, guid: 29a17c709a95f9a408c4ac8e2a004a96, type: 3}
+  _minCardsNum: 4
+  _maxCardsNum: 6
+  _minCardStat: 5
+  _maxCardStat: 10
+--- !u!114 &701000736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701000733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a143472dc6d664478837732f9c42047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetUrl: https://api.lorem.space/image/movie?w=350&h=350
+  _onDownloadCompletion:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 701000735}
+        m_TargetAssemblyTypeName: CardsGenerator, Assembly-CSharp
+        m_MethodName: OnSpriteLoadCompletion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &817071608
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,8 +869,32 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 144728901}
-        m_TargetAssemblyTypeName: HandController, Assembly-CSharp
-        m_MethodName: TryFillHandWithRandomCards
+        m_TargetAssemblyTypeName: CCG.Hand.PlayerHand, Assembly-CSharp
+        m_MethodName: DiscardAllCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2091105569}
+        m_TargetAssemblyTypeName: CCG.DropBoard.DropBoardController, Assembly-CSharp
+        m_MethodName: DestroyAllCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 701000735}
+        m_TargetAssemblyTypeName: CardsGenerator, Assembly-CSharp
+        m_MethodName: TryToGenerateCards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -843,161 +942,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978170324}
   m_CullTransparentMesh: 1
---- !u!1 &1001827202
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1001827204}
-  - component: {fileID: 1001827203}
-  m_Layer: 5
-  m_Name: 'Controller: Ark Positioner'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1001827203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001827202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9570882cd880bd479f3b097eb8fb643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ArkRadius: 200
-  _ArkSectionRadMax: 0.5
-  _ArkSectionRadMin: 0.2
-  _ArkOffsetY: 120
---- !u!224 &1001827204
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001827202}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 701000734}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1248529328
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1248529329}
-  - component: {fileID: 1248529331}
-  - component: {fileID: 1248529330}
-  m_Layer: 5
-  m_Name: 'Controller: Card Spawner/Sprite Web Loader'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1248529329
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248529328}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 701000734}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1248529330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248529328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a143472dc6d664478837732f9c42047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _BasicUrl: https://picsum.photos/
-  _SpriteWidth: 350
-  _SpriteHeight: 350
-  OnDownloadCompletion:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1248529331}
-        m_TargetAssemblyTypeName: CardSpawner, Assembly-CSharp
-        m_MethodName: OnSpriteRequestComplete
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1248529331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248529328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19bf12c15fd20a24a85d78711161066d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _SpriteLoader: {fileID: 1248529330}
-  _ParentTransform: {fileID: 1596659962}
-  _CardPrefab: {fileID: 5510248481734779266, guid: 97b37da5750fefa4e9e7fcfe34b20787, type: 3}
-  _MinCardsNum: 4
-  _MaxCardsNum: 6
-  _MinCardStat: 5
-  _MaxCardStat: 10
-  _OnCardsGenerationComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 144728901}
-        m_TargetAssemblyTypeName: HandController, Assembly-CSharp
-        m_MethodName: OnCardGenerationComplete
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1596659961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,7 +1062,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2091406402}
+      - m_Target: {fileID: 2091105570}
         m_TargetAssemblyTypeName: RandomStatsChangeController, Assembly-CSharp
         m_MethodName: StartRandomChange
         m_Mode: 1
@@ -1314,8 +1258,9 @@ GameObject:
   - component: {fileID: 2091105564}
   - component: {fileID: 2091105568}
   - component: {fileID: 2091105566}
-  - component: {fileID: 2091105569}
   - component: {fileID: 2091105565}
+  - component: {fileID: 2091105569}
+  - component: {fileID: 2091105570}
   m_Layer: 5
   m_Name: 'Controller: Drop Board'
   m_TagString: Gameboard
@@ -1419,51 +1364,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456fe725d2d284f4d8bfccff8c334c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Hand: {fileID: 144728901}
---- !u!1 &2091406400
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2091406401}
-  - component: {fileID: 2091406402}
-  m_Layer: 5
-  m_Name: 'Controller: Random Stats Changer'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2091406401
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091406400}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 701000734}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2091406402
+--- !u!114 &2091105570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091406400}
+  m_GameObject: {fileID: 2091105563}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67d7a289f9f70c243907718f7a74c342, type: 3}
@@ -1472,4 +1379,4 @@ MonoBehaviour:
   _Hand: {fileID: 144728901}
   _MinValue: -2
   _MaxValue: 9
-  _PauseBeforeNextCard: 1
+  _PauseBeforeNextCard: 1.3

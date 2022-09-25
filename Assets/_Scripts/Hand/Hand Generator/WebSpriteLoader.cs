@@ -1,63 +1,64 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Networking;
-
-public class WebSpriteLoader : MonoBehaviour
+namespace CCG.Hand.SpriteLoader
 {
-    [Header("URL Settings")]
-    public string _BasicUrl = "https://picsum.photos/";
-    public int _SpriteWidth = 200;
-    public int _SpriteHeight = 350;
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using UnityEngine.Networking;
 
-    [Header("On Download Completion")]
-    public UnityEvent OnDownloadCompletion;
+    public class WebSpriteLoader : MonoBehaviour
+    {
+        [Header("URL Settings")]
+        [SerializeField] private string _targetUrl = "https://api.lorem.space/image/movie?w=350&h=350";
+        //[SerializeField] private string _targetUrl = "https://picsum.photos/350/350";
 
-    private List<Sprite> _DownloadedSprites = new List<Sprite>();
-    IEnumerator _DownloadCoroutine;
-    public void TryToRequestSprites(int numberOfSprites)
-    {
-        if (_DownloadCoroutine != null) {
-            StopCoroutine(_DownloadCoroutine);
-            _DownloadCoroutine = null;
-        }
-        _DownloadCoroutine = GetSpritesCoroutine(numberOfSprites);
-        StartCoroutine(_DownloadCoroutine);
-    }
-    IEnumerator GetSpritesCoroutine(int numberOfSprites)
-    {
-        Debug.Log(string.Format("Trying to async download {0} sprites from \"{1}\"", numberOfSprites, TargetURL));
-        _DownloadedSprites.Clear();
-        for (int i = 0; i < numberOfSprites; i++)
-        {
-            yield return GetOneSpriteCoroutine();
-        }
-        OnDownloadCompletion.Invoke();
-    }
-    IEnumerator GetOneSpriteCoroutine()
-    {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(TargetURL);
-        yield return www.SendWebRequest();
+        [Header("On Download Completion")]
+        [SerializeField] private UnityEvent _onDownloadCompletion;
 
-        if (www.result != UnityWebRequest.Result.Success)
+        private List<Sprite> _downloadedSprites = new List<Sprite>();
+        IEnumerator _downloadCoroutine;
+        public void TryToRequestSprites(int numberOfSprites)
         {
-            Debug.Log(www.error);
+            if (_downloadCoroutine != null)
+            {
+                StopCoroutine(_downloadCoroutine);
+                _downloadCoroutine = null;
+            }
+            _downloadCoroutine = GetSpritesCoroutine(numberOfSprites);
+            StartCoroutine(_downloadCoroutine);
         }
-        else
+        IEnumerator GetSpritesCoroutine(int numberOfSprites)
         {
-            Texture2D texture = DownloadHandlerTexture.GetContent(www);
-            Debug.Log(texture.GetRawTextureData().Length + " bytes recieved");
-            Rect rect = new Rect(0.0f, 0.0f, texture.width, texture.height);
-            Sprite sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
-            
-            _DownloadedSprites.Add(sprite);
+            Debug.Log(string.Format("Trying to async download {0} sprites from \"{1}\"", numberOfSprites, _targetUrl));
+            DownloadedSprites.Clear();
+            for (int i = 0; i < numberOfSprites; i++)
+            {
+                yield return GetOneSpriteCoroutine();
+            }
+            _onDownloadCompletion.Invoke();
         }
+        IEnumerator GetOneSpriteCoroutine()
+        {
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(_targetUrl);
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Texture2D texture = DownloadHandlerTexture.GetContent(www);
+                Rect rect = new Rect(0.0f, 0.0f, texture.width, texture.height);
+                Sprite sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+
+                DownloadedSprites.Add(sprite);
+            }
+        }
+        public void ClearDownloadedSprites()
+        {
+            DownloadedSprites.Clear();
+        }
+        public List<Sprite> DownloadedSprites { get => _downloadedSprites; private set => _downloadedSprites = value; }
     }
-    public void ClearDownloadedSprites()
-    {
-        _DownloadedSprites.Clear();
-    }
-    private string TargetURL{ get => string.Format("{0}{1}/{2}", _BasicUrl, _SpriteWidth, _SpriteHeight); }
-    public List<Sprite> DownloadedSprites { get => _DownloadedSprites; set => _DownloadedSprites = value; }
 }

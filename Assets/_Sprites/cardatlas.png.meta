@@ -157,7 +157,7 @@ TextureImporter:
         width: 389
         height: 543
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,6 +165,27 @@ TextureImporter:
       bones: []
       spriteID: 4a6ac7623f692114aa36fee04fbc5b64
       internalID: -1516952727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cardatlas_defaultSprite
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 0
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 780af9ee14bbe694a89bc2d677b62508
+      internalID: 451374735
       vertices: []
       indices: 
       edges: []
@@ -181,6 +202,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       cardatlas_frame: -1307434666
+      cardatlas_defaultSprite: 451374735
       cardatlas_filler_mask: -1516952727
   spritePackingTag: 
   pSDRemoveMatte: 0
